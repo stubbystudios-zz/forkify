@@ -54,7 +54,6 @@ elements.searchResPages.addEventListener('click', e => {
     const goToPage = parseInt(btn.dataset.goto, 10);
     searchView.clearResults();
     searchView.renderResults(state.search.result, goToPage);
-    console.log(goToPage);
   }
 });
 
@@ -62,12 +61,16 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
   // Get the ID from the URL
   const id = window.location.hash.replace('#', '');
-  console.log(id);
 
   if (id) {
     // Prepare for UI changes
     recipeView.clearRecipe();
     renderLoader(elements.recipe);
+
+    // Highlight selected search item
+    if (state.search) {
+      searchView.highlightSelected(id);
+    }
 
     // Create new recipe object
     state.recipe = new Recipe(id);
@@ -86,7 +89,7 @@ const controlRecipe = async () => {
       clearLoader();
       recipeView.renderRecipe(state.recipe);
     } catch (error) {
-      console.log('Error processing recipe', error);
+      alert('Error processing recipe', error);
     }
   }
 };
