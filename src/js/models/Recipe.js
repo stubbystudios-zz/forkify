@@ -15,6 +15,7 @@ export default class Recipe {
       this.ingredients = res.data.recipe.ingredients;
     } catch (error) {
       alert(error);
+      alert('Uh oh. Check models/Recipe.');
     }
   }
 
